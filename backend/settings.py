@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
 
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 REST_FRAMEWORK = {
@@ -55,13 +56,12 @@ REST_FRAMEWORK = {
 
 
 from datetime import timedelta
-...
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': False,
+    'ROTATE_REFRESH_TOKENS': True,     # creates new refresh token after the refresh token lifetime ends
+    'BLACKLIST_AFTER_ROTATION': True,  # blacklists the recent refresh token so no one would use that again
     'UPDATE_LAST_LOGIN': False,
 
     'ALGORITHM': 'HS256',
